@@ -7,6 +7,9 @@
 <meta name="description" content="Rajiya Risha — official website. Nasheed, hamd, naat & Islamic music. New releases, videos, live events and bookings.">
 <meta property="og:title" content="Rajiya Risha — Official Website">
 <meta property="og:description" content="Nasheed · Hamd · Naat. New releases, videos, live events.">
+<meta property="og:image" content="https://rajiyarisha.com/assets/rajiya-risha.jpg">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
@@ -36,7 +39,9 @@ body::before{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;o
 header{position:fixed;inset:0 0 auto 0;z-index:60;color:var(--paper);transition:background .4s,color .4s,border-color .4s;border-bottom:1px solid transparent}
 header.solid{background:rgba(242,235,221,.88);backdrop-filter:blur(14px);color:var(--ink);border-color:rgba(20,17,13,.08)}
 .bar{display:flex;align-items:center;justify-content:space-between;height:76px}
-.brand{font-family:var(--serif);font-size:1.7rem;letter-spacing:-.01em}
+.brand{font-family:var(--serif);font-size:1.7rem;letter-spacing:-.01em;display:flex;align-items:center;gap:12px}
+.brand-logo{width:42px;height:42px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold);box-shadow:0 0 0 3px rgba(201,162,90,.18)}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .links{display:flex;gap:34px;font-size:.86rem;letter-spacing:.02em}
 .links a{position:relative;opacity:.85}
 .links a::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:0;background:currentColor;transition:width .3s}
@@ -255,7 +260,7 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
 <!-- ================= HEADER ================= -->
 <header id="hdr">
   <div class="wrap bar">
-    <a href="#top" class="brand">Rajiya Risha</a>
+    <a href="#top" class="brand"><img src="assets/logo.jpg" alt="Rajiya Risha" class="brand-logo">Rajiya Risha</a>
     <nav class="links">
       <a href="#music"><span lang="en">music</span><span lang="bn">সংগীত</span></a>
       <a href="#videos"><span lang="en">videos</span><span lang="bn">ভিডিও</span></a>
@@ -363,8 +368,7 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
     <div class="label rv"><b>03</b> <span lang="en">about</span><span lang="bn">পরিচিতি</span></div>
     <div class="about">
       <div class="portrait rv">
-        <div class="ph"><span lang="en">Artist portrait</span><span lang="bn">শিল্পীর ছবি</span></div>
-        <svg viewBox="0 0 200 220"><path d="M100 20c-34 0-56 26-56 60 0 22 8 40 20 52-30 10-52 34-58 88h188c-6-54-28-78-58-88 12-12 20-30 20-52 0-34-22-60-56-60z" fill="currentColor"/></svg>
+        <img src="assets/rajiya-risha.jpg" alt="Rajiya Risha">
       </div>
       <div class="bio">
         <p class="lead rv"><span lang="en">Rajiya Risha is a Bangladeshi Islamic vocalist whose <em>nasheeds, hamd and naat</em> carry remembrance into everyday life — quiet, sincere, and made to be returned to.</span><span lang="bn">Rajiya Risha একজন বাংলাদেশি ইসলামী সংগীত শিল্পী। তাঁর <em>নাশীদ, হামদ ও নাত</em> প্রতিদিনের জীবনে আল্লাহর স্মরণ বয়ে আনে — শান্ত, আন্তরিক, বারবার শোনার মতো।</span></p>
