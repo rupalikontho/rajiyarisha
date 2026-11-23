@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="assets/logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600&family=Amiri:wght@400;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500&family=Noto+Naskh+Arabic:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#f2ebdd; --paper2:#e9e0cc; --ink:#14110d; --ink2:#3a352d; --mute:#7c7365;
@@ -22,15 +22,27 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body.bn{font-family:'Hind Siliguri',var(--sans)}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit}
 .wrap{width:min(1240px,92vw);margin:0 auto}
 .arabic{font-family:'Amiri',serif}
-/* bilingual */
-[lang="bn"]{display:none}
-body.bn [lang="en"]{display:none}
-body.bn [lang="bn"]{display:revert}
+/* languages */
+html[lang=bn]{--serif:'Hind Siliguri',serif;--sans:'Hind Siliguri',sans-serif}
+html[lang=hi]{--serif:'Noto Serif Devanagari',serif;--sans:'Noto Sans Devanagari',sans-serif}
+html[lang=ur]{--serif:'Noto Nastaliq Urdu',serif;--sans:'Noto Nastaliq Urdu',serif}
+html[lang=ar]{--serif:'Amiri',serif;--sans:'Noto Naskh Arabic',serif}
+.brand,.hero h1,.bigname,.sleeve .t{font-family:'Instrument Serif',Georgia,serif!important}
+html:not([lang=en]) *{letter-spacing:0!important}
+html:not([lang=en]) h2.display,html:not([lang=en]) #family h2{font-size:clamp(2.4rem,6vw,5rem);line-height:1.25}
+html[lang=ur] h2.display,html[lang=ur] #family h2{font-size:clamp(2rem,5vw,4rem);line-height:1.9}
+html:not([lang=en]) .bio .lead{font-family:var(--sans);font-weight:500;font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.6}
+html[lang=ur] .bio .lead,html[lang=ur] p,html[lang=ur] .cols{line-height:2.2}
+html[lang=ur] .bio .lead{font-weight:400}
+html[dir=rtl] .pill .ar{transform:scaleX(-1)}
+html[dir=rtl] .hero h1{direction:ltr;text-align:right}
+html[dir=rtl] .bigname,html[dir=rtl] .contacts div>span,html[dir=rtl] .brand{direction:ltr;unicode-bidi:isolate}
+html[dir=rtl] .contacts div>span{display:block;text-align:right}
+html[dir=rtl] .kicker::before{order:2}
 /* grain */
 body::before{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.06;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -47,11 +59,18 @@ header.solid{background:rgba(242,235,221,.88);backdrop-filter:blur(14px);color:v
 .links a::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:0;background:currentColor;transition:width .3s}
 .links a:hover{opacity:1}.links a:hover::after{width:100%}
 .right{display:flex;align-items:center;gap:16px}
-.lang{display:flex;border:1px solid currentColor;border-radius:999px;overflow:hidden;font-size:.75rem;opacity:.9}
-.lang button{background:none;border:0;color:inherit;padding:6px 11px;cursor:pointer;letter-spacing:.04em}
-.lang button.on{background:currentColor}
-.lang button.on span{color:var(--night)}
-header.solid .lang button.on span{color:var(--paper)}
+.langsel{position:relative}
+.lang-btn{display:flex;align-items:center;gap:7px;background:none;border:1px solid currentColor;color:inherit;border-radius:999px;padding:7px 13px;font-size:.78rem;font-weight:600;cursor:pointer;opacity:.9;font-family:'Manrope',sans-serif}
+.lang-btn:hover{opacity:1}
+.lang-menu{position:absolute;top:calc(100% + 10px);inset-inline-end:0;min-width:170px;background:var(--paper);color:var(--ink);border-radius:14px;padding:6px;box-shadow:0 20px 50px -12px rgba(0,0,0,.45);display:none;z-index:70}
+.langsel.open .lang-menu{display:block}
+.lang-menu button{display:block;width:100%;text-align:start;background:none;border:0;padding:10px 14px;border-radius:9px;font-size:1rem;cursor:pointer;color:inherit}
+.lang-menu button[data-l=bn]{font-family:'Hind Siliguri'}
+.lang-menu button[data-l=hi]{font-family:'Noto Sans Devanagari',sans-serif}
+.lang-menu button[data-l=ur]{font-family:'Noto Nastaliq Urdu',serif}
+.lang-menu button[data-l=ar]{font-family:'Noto Naskh Arabic',serif}
+.lang-menu button:hover{background:var(--paper2)}
+.lang-menu button.on{background:var(--ink);color:var(--paper)}
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;width:30px;height:20px;position:relative}
 .burger i{position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:.3s}
 .burger i:nth-child(1){top:4px}.burger i:nth-child(2){bottom:4px}
@@ -61,7 +80,7 @@ body.menu .burger i:nth-child(2){bottom:9px;transform:rotate(-45deg)}
   clip-path:circle(0% at 95% 4%);transition:clip-path .7s cubic-bezier(.7,0,.2,1)}
 body.menu .overlay{clip-path:circle(150% at 95% 4%)}
 body.menu header{color:var(--paper);background:transparent;border-color:transparent}
-.overlay a{font-family:var(--serif);font-size:clamp(2.6rem,10vw,4.5rem);line-height:1.15}
+.overlay a{text-transform:capitalize;font-family:var(--serif);font-size:clamp(2.6rem,10vw,4.5rem);line-height:1.15}
 .overlay a em{color:var(--gold)}
 @media(max-width:900px){.links{display:none}.burger{display:block}}
 
@@ -175,7 +194,6 @@ h2.display em{color:var(--jade)}
 .portrait .ph{position:absolute;top:44%;left:0;right:0;text-align:center;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#3d2d1e;opacity:.7}
 .bio .lead{font-family:var(--serif);font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.12;letter-spacing:-.01em}
 .bio .lead em{color:var(--jade)}
-body.bn .bio .lead{font-family:'Hind Siliguri';font-weight:500;font-size:clamp(1.5rem,2.8vw,2.2rem);line-height:1.45}
 .bio .cols{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:40px;color:var(--ink2);line-height:1.8;font-size:.98rem}
 .verse{margin-top:56px;padding:40px 0;border-block:1px solid rgba(20,17,13,.14);text-align:center}
 .verse .arabic{font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--emerald)}
@@ -221,7 +239,7 @@ form{display:grid;gap:26px}
 .field{position:relative}
 .field input,.field select,.field textarea{width:100%;background:none;border:0;border-bottom:1px solid rgba(20,17,13,.3);padding:22px 0 10px;font-size:1.05rem;font-family:inherit;color:var(--ink);outline:none;transition:border-color .3s;border-radius:0;-webkit-appearance:none;appearance:none}
 .field textarea{min-height:100px;resize:vertical}
-.field label{position:absolute;left:0;top:22px;color:var(--mute);font-size:1rem;pointer-events:none;transition:.25s}
+.field label{position:absolute;inset-inline-start:0;top:22px;color:var(--mute);font-size:1rem;pointer-events:none;transition:.25s}
 .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--ink)}
 .field input:focus+label,.field input:not(:placeholder-shown)+label,.field textarea:focus+label,.field textarea:not(:placeholder-shown)+label,.field.sel label{top:0;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
@@ -262,28 +280,37 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
   <div class="wrap bar">
     <a href="#top" class="brand"><img src="assets/logo.jpg" alt="Rajiya Risha" class="brand-logo">Rajiya Risha</a>
     <nav class="links">
-      <a href="#music"><span lang="en">music</span><span lang="bn">সংগীত</span></a>
-      <a href="#videos"><span lang="en">videos</span><span lang="bn">ভিডিও</span></a>
-      <a href="#about"><span lang="en">about</span><span lang="bn">পরিচিতি</span></a>
-      <a href="#live"><span lang="en">live</span><span lang="bn">অনুষ্ঠান</span></a>
-      <a href="#booking"><span lang="en">booking</span><span lang="bn">বুকিং</span></a>
+      <a href="#music"><span data-i18n="nav_music">music</span></a>
+      <a href="#videos"><span data-i18n="nav_videos">videos</span></a>
+      <a href="#about"><span data-i18n="nav_about">about</span></a>
+      <a href="#live"><span data-i18n="nav_live">live</span></a>
+      <a href="#booking"><span data-i18n="nav_booking">booking</span></a>
     </nav>
     <div class="right">
-      <div class="lang" role="group" aria-label="Language">
-        <button class="on" data-l="en"><span>EN</span></button>
-        <button data-l="bn"><span>বাং</span></button>
+      <div class="langsel" id="langsel">
+        <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5s1.3-6.7 3.9-9.5z"/></svg>
+          <span id="langCur">EN</span>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu">
+          <button data-l="en" role="menuitem">English</button>
+          <button data-l="bn" role="menuitem">বাংলা</button>
+          <button data-l="hi" role="menuitem">हिन्दी</button>
+          <button data-l="ur" role="menuitem" dir="rtl">اردو</button>
+          <button data-l="ar" role="menuitem" dir="rtl">العربية</button>
+        </div>
       </div>
       <button class="burger" aria-label="Menu"><i></i><i></i></button>
     </div>
   </div>
 </header>
 <div class="overlay" id="overlay">
-  <a href="#music"><span lang="en">Music</span><span lang="bn">সংগীত</span></a>
-  <a href="#videos"><span lang="en">Videos</span><span lang="bn">ভিডিও</span></a>
-  <a href="#about"><span lang="en">About</span><span lang="bn">পরিচিতি</span></a>
-  <a href="#live"><span lang="en">Live</span><span lang="bn">অনুষ্ঠান</span></a>
-  <a href="#family"><em><span lang="en">Join the Family</span><span lang="bn">পরিবারে যোগ দিন</span></em></a>
-  <a href="#booking"><span lang="en">Booking</span><span lang="bn">বুকিং</span></a>
+  <a href="#music"><span data-i18n="nav_music">Music</span></a>
+  <a href="#videos"><span data-i18n="nav_videos">Videos</span></a>
+  <a href="#about"><span data-i18n="nav_about">About</span></a>
+  <a href="#live"><span data-i18n="nav_live">Live</span></a>
+  <a href="#family"><em><span data-i18n="join_short">Join the Family</span></em></a>
+  <a href="#booking"><span data-i18n="nav_booking">Booking</span></a>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -297,13 +324,13 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
     <path d="M0 300V230h60v-20h30v20h40v-40h20v40h50V200q0-30 30-45 30 15 30 45v30h40V120l6-30 6 30v110h50v-50q0-55 70-80 70 25 70 80v50h40V160q0-20 22-34 22 14 22 34v70h60v-30h50v30h30V110l7-34 7 34v120h50v-60q0-45 55-65 55 20 55 65v60h40v-40h30v40h40v-60q0-26 26-40 26 14 26 40v60h40V130l6-28 6 28v100h40v-30h30v30h50v20h40v-40h30v40h20v70z"/>
   </svg>
   <div class="hero-content wrap">
-    <div class="kicker"><span lang="en">Official website</span><span lang="bn">অফিসিয়াল ওয়েবসাইট</span></div>
+    <div class="kicker"><span data-i18n="kicker">Official website</span></div>
     <h1 class="split">Rajiya <em>Risha</em></h1>
     <div class="hero-foot">
-      <p class="rv"><span lang="en">Nasheed, hamd &amp; naat — a voice of devotion, carried in melody.</span><span lang="bn">নাশীদ, হামদ ও নাত — সুরে সুরে ভালোবাসার দাওয়াত।</span></p>
+      <p class="rv"><span data-i18n="hero_tag">Nasheed, hamd &amp; naat — a voice of devotion, carried in melody.</span></p>
       <div style="display:flex;gap:12px;flex-wrap:wrap" class="rv">
-        <a href="#music" class="pill pill-light"><span lang="en">Listen now</span><span lang="bn">এখনই শুনুন</span> <span class="ar">→</span></a>
-        <a href="#videos" class="pill pill-line" data-i="0">▶ <span lang="en">Watch video</span><span lang="bn">ভিডিও দেখুন</span></a>
+        <a href="#music" class="pill pill-light"><span data-i18n="listen_now">Listen now</span> <span class="ar">→</span></a>
+        <a href="#videos" class="pill pill-line" data-i="0">▶ <span data-i18n="watch_video">Watch video</span></a>
       </div>
     </div>
   </div>
@@ -317,7 +344,7 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
 <!-- ================= MUSIC / RELEASE ================= -->
 <section id="music">
   <div class="wrap">
-    <div class="label rv"><b>01</b> <span lang="en">music</span><span lang="bn">সংগীত</span></div>
+    <div class="label rv"><b>01</b> <span data-i18n="nav_music">music</span></div>
     <div class="release">
       <div class="stage rv" id="stage">
         <div class="vinyl" id="vinyl"></div>
@@ -332,13 +359,13 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
         <div class="obj o3" data-depth="0.1"><svg viewBox="0 0 100 140"><path d="M50 60c2 30-4 55-8 78" stroke="#2f5a3a" stroke-width="4" fill="none"/><path d="M47 95c-14-6-24-2-30 6 12 4 22 2 30-6zM49 110c12-8 24-6 30 1-12 5-22 4-30-1z" fill="#3f7a4c"/><circle cx="50" cy="38" r="30" fill="#b5655b"/><path d="M50 14c-12 6-18 16-14 26 6-8 18-8 26-2 2-12-4-20-12-24z" fill="#cf7c70"/><path d="M28 36c4 16 16 24 30 22-10-4-18-12-18-26zM72 36c-2 14-10 22-22 24 14 2 24-6 26-18z" fill="#9b4d45"/><path d="M44 34c4-6 12-6 14 0-4 4-10 4-14 0z" fill="#8a3f38"/></svg></div>
         <div class="obj o4" data-depth="-0.16"><svg viewBox="0 0 80 170"><rect x="18" y="0" width="44" height="70" rx="22" fill="#2a2a2a"/><g stroke="#555" stroke-width="1.5"><path d="M18 18h44M18 28h44M18 38h44M18 48h44"/></g><rect x="18" y="0" width="44" height="70" rx="22" fill="none" stroke="#c9a25a" stroke-width="3"/><path d="M10 50v8a30 30 0 0 0 60 0v-8" fill="none" stroke="#c9a25a" stroke-width="3"/><path d="M40 88v60" stroke="#c9a25a" stroke-width="5"/><ellipse cx="40" cy="156" rx="28" ry="8" fill="#c9a25a"/></svg></div>
         <div class="obj o5" data-depth="0.22"><svg viewBox="0 0 100 100"><path d="M62 8a44 44 0 1 0 30 74A36 36 0 1 1 62 8z" fill="#e8cf98" stroke="#a7823e" stroke-width="2"/><path d="M78 30l3 8 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z" fill="#c9a25a"/></svg></div>
-        <div class="tag-note"><span lang="en">Now playing</span><span lang="bn">এখন শুনুন</span></div>
+        <div class="tag-note"><span data-i18n="now_playing">Now playing</span></div>
       </div>
 
       <div class="rel-info rv">
-        <div class="eyebrow"><span lang="en">Latest release</span><span lang="bn">সর্বশেষ প্রকাশ</span></div>
+        <div class="eyebrow"><span data-i18n="latest">Latest release</span></div>
         <h3 id="relTitle" style="font-size:clamp(2.2rem,4.4vw,3.8rem)"></h3>
-        <p><span lang="en">Soft vocals, sincere words and melodies made for remembrance. Tap any track to play it right here.</span><span lang="bn">কোমল কণ্ঠ, আন্তরিক কথা আর স্মরণের সুর। যেকোনো গজলে চাপ দিন — এখানেই বাজবে।</span></p>
+        <p><span data-i18n="rel_desc">Soft vocals, sincere words and melodies made for remembrance. Tap any track to play it right here.</span></p>
         <ul class="tracklist" id="tracklist"></ul>
         <div class="listen">
           <a class="pill pill-dark" href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify <span class="ar">↗</span></a>
@@ -353,10 +380,10 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
 <!-- ================= VIDEOS ================= -->
 <section id="videos" class="dark">
   <div class="wrap">
-    <div class="label rv"><b>02</b> <span lang="en">videos</span><span lang="bn">ভিডিও</span></div>
+    <div class="label rv"><b>02</b> <span data-i18n="nav_videos">videos</span></div>
     <div class="vhead">
-      <h2 class="display split"><span lang="en">Watch &amp; <em>listen</em></span><span lang="bn">দেখুন ও <em>শুনুন</em></span></h2>
-      <a class="pill pill-line rv" href="https://www.youtube.com/watch?v=QNkQRNDFTjY" target="_blank" rel="noopener"><span lang="en">More on YouTube</span><span lang="bn">YouTube-এ আরও দেখুন</span> <span class="ar">↗</span></a>
+      <h2 class="display split"><span data-i18n="watch_listen">Watch &amp; <em>listen</em></span></h2>
+      <a class="pill pill-line rv" href="https://www.youtube.com/watch?v=QNkQRNDFTjY" target="_blank" rel="noopener"><span data-i18n="more_yt">More on YouTube</span> <span class="ar">↗</span></a>
     </div>
     <div class="feature rv" id="vfeature"></div>
   </div>
@@ -365,20 +392,20 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
 <!-- ================= ABOUT ================= -->
 <section id="about">
   <div class="wrap">
-    <div class="label rv"><b>03</b> <span lang="en">about</span><span lang="bn">পরিচিতি</span></div>
+    <div class="label rv"><b>03</b> <span data-i18n="nav_about">about</span></div>
     <div class="about">
       <div class="portrait rv">
         <img src="assets/rajiya-risha.jpg" alt="Rajiya Risha">
       </div>
       <div class="bio">
-        <p class="lead rv"><span lang="en">Rajiya Risha is a Bangladeshi Islamic vocalist whose <em>nasheeds, hamd and naat</em> carry remembrance into everyday life — quiet, sincere, and made to be returned to.</span><span lang="bn">Rajiya Risha একজন বাংলাদেশি ইসলামী সংগীত শিল্পী। তাঁর <em>নাশীদ, হামদ ও নাত</em> প্রতিদিনের জীবনে আল্লাহর স্মরণ বয়ে আনে — শান্ত, আন্তরিক, বারবার শোনার মতো।</span></p>
+        <p class="lead rv"><span data-i18n="bio_lead">Rajiya Risha is a Bangladeshi Islamic vocalist whose <em>nasheeds, hamd and naat</em> carry remembrance into everyday life — quiet, sincere, and made to be returned to.</span></p>
         <div class="cols rv">
-          <p><span lang="en">Rooted in the Bengali tradition of devotional song and inspired by the wider world of Arabic and Urdu nasheed, her work blends clear diction, restrained arrangement and lyrics that mean something.</span><span lang="bn">বাংলা ইসলামী সংগীতের ঐতিহ্যে বেড়ে ওঠা, আর আরবি ও উর্দু নাশীদের বৃহত্তর জগৎ থেকে অনুপ্রাণিত — তাঁর কাজে মেলে পরিশুদ্ধ উচ্চারণ, পরিমিত সুরবিন্যাস আর অর্থবহ কথা।</span></p>
-          <p><span lang="en">From studio releases to live mahfils, the aim is always the same: to make remembrance beautiful, and to leave every listener a little closer to peace.</span><span lang="bn">স্টুডিও রেকর্ডিং থেকে লাইভ মাহফিল — লক্ষ্য সবসময় একটাই: আল্লাহর স্মরণকে সুন্দর করে তোলা, আর প্রতিটি শ্রোতাকে একটু বেশি প্রশান্তির কাছে নিয়ে যাওয়া।</span></p>
+          <p><span data-i18n="bio_p1">Rooted in the Bengali tradition of devotional song and inspired by the wider world of Arabic and Urdu nasheed, her work blends clear diction, restrained arrangement and lyrics that mean something.</span></p>
+          <p><span data-i18n="bio_p2">From studio releases to live mahfils, the aim is always the same: to make remembrance beautiful, and to leave every listener a little closer to peace.</span></p>
         </div>
         <div class="verse rv">
           <div class="arabic">أَلَا بِذِكْرِ ٱللَّهِ تَطْمَئِنُّ ٱلْقُلُوبُ</div>
-          <p><span lang="en">“Verily, in the remembrance of Allah do hearts find rest.” — Ar-Ra‘d 13:28</span><span lang="bn">“জেনে রাখো, আল্লাহর স্মরণেই হৃদয় প্রশান্ত হয়।” — সূরা আর-রা'দ ১৩:২৮</span></p>
+          <p><span data-i18n="verse">“Verily, in the remembrance of Allah do hearts find rest.” — Ar-Ra‘d 13:28</span></p>
         </div>
       </div>
     </div>
@@ -388,8 +415,8 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
 <!-- ================= LIVE ================= -->
 <section id="live">
   <div class="wrap">
-    <div class="label rv"><b>04</b> <span lang="en">live dates</span><span lang="bn">আসন্ন অনুষ্ঠান</span></div>
-    <h2 class="display split" style="margin-top:40px"><span lang="en">On <em>stage</em></span><span lang="bn">মঞ্চে <em>দেখা হবে</em></span></h2>
+    <div class="label rv"><b>04</b> <span data-i18n="label_live">live dates</span></div>
+    <h2 class="display split" style="margin-top:40px"><span data-i18n="on_stage">On <em>stage</em></span></h2>
     <div class="events" id="events"></div>
   </div>
 </section>
@@ -398,11 +425,11 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
 <section id="family">
   <div class="geo"></div>
   <div class="wrap">
-    <h2 class="split"><span lang="en">Join the <em>Risha</em> family</span><span lang="bn">রিশা <em>পরিবারে</em> যোগ দিন</span></h2>
-    <p class="rv"><span lang="en">New releases, live dates and behind-the-scenes — straight to your inbox. No noise, just remembrance.</span><span lang="bn">নতুন গজল, অনুষ্ঠানের খবর আর পর্দার পেছনের গল্প — সরাসরি আপনার ইনবক্সে।</span></p>
+    <h2 class="split"><span data-i18n="family_title">Join the <em>Risha</em> family</span></h2>
+    <p class="rv"><span data-i18n="family_desc">New releases, live dates and behind-the-scenes — straight to your inbox. No noise, just remembrance.</span></p>
     <form class="join rv" id="joinForm">
       <input type="email" required placeholder="your@email.com" aria-label="Email">
-      <button class="pill pill-light" type="submit"><span lang="en">Subscribe</span><span lang="bn">সাবস্ক্রাইব</span></button>
+      <button class="pill pill-light" type="submit"><span data-i18n="subscribe">Subscribe</span></button>
     </form>
     <div class="join-ok" id="joinOk"></div>
     <div class="socials rv">
@@ -418,28 +445,28 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
 <!-- ================= BOOKING ================= -->
 <section id="booking">
   <div class="wrap">
-    <div class="label rv"><b>05</b> <span lang="en">booking &amp; contact</span><span lang="bn">বুকিং ও যোগাযোগ</span></div>
+    <div class="label rv"><b>05</b> <span data-i18n="label_booking">booking &amp; contact</span></div>
     <div class="book">
       <div class="info">
-        <h2 class="display split"><span lang="en">Invite <em>Rajiya</em></span><span lang="bn">আমন্ত্রণ <em>জানান</em></span></h2>
-        <p class="rv"><span lang="en">For mahfils, cultural programmes, studio collaborations and international events, please get in touch with management.</span><span lang="bn">মাহফিল, সাংস্কৃতিক অনুষ্ঠান, স্টুডিও কোলাবরেশন ও আন্তর্জাতিক অনুষ্ঠানের জন্য ম্যানেজমেন্টের সাথে যোগাযোগ করুন।</span></p>
+        <h2 class="display split"><span data-i18n="invite">Invite <em>Rajiya</em></span></h2>
+        <p class="rv"><span data-i18n="booking_desc">For mahfils, cultural programmes, studio collaborations and international events, please get in touch with management.</span></p>
         <div class="contacts rv">
-          <div><small><span lang="en">Booking</span><span lang="bn">বুকিং</span></small><span>booking@rajiyarisha.com</span></div>
-          <div><small><span lang="en">Press &amp; media</span><span lang="bn">প্রেস ও মিডিয়া</span></small><span>press@rajiyarisha.com</span></div>
+          <div><small><span data-i18n="nav_booking">Booking</span></small><span>booking@rajiyarisha.com</span></div>
+          <div><small><span data-i18n="c_press">Press &amp; media</span></small><span>press@rajiyarisha.com</span></div>
           <div><small>WhatsApp</small><span>+880 1XXX-XXXXXX</span></div>
         </div>
       </div>
       <form id="bookForm" class="rv">
         <div class="two">
-          <div class="field"><input id="f1" placeholder=" " required><label for="f1"><span lang="en">Your name</span><span lang="bn">আপনার নাম</span></label></div>
-          <div class="field"><input id="f2" placeholder=" " required><label for="f2"><span lang="en">Phone / email</span><span lang="bn">ফোন / ইমেইল</span></label></div>
+          <div class="field"><input id="f1" placeholder=" " required><label for="f1"><span data-i18n="f_name">Your name</span></label></div>
+          <div class="field"><input id="f2" placeholder=" " required><label for="f2"><span data-i18n="f_contact">Phone / email</span></label></div>
         </div>
         <div class="two">
-          <div class="field sel"><select id="f3"><option>Mahfil / ওয়াজ মাহফিল</option><option>Cultural event / সাংস্কৃতিক অনুষ্ঠান</option><option>Studio / রেকর্ডিং</option><option>Collaboration / কোলাবরেশন</option><option>International / আন্তর্জাতিক</option></select><label for="f3"><span lang="en">Event type</span><span lang="bn">অনুষ্ঠানের ধরন</span></label></div>
-          <div class="field"><input id="f4" placeholder=" "><label for="f4"><span lang="en">City / country</span><span lang="bn">শহর / দেশ</span></label></div>
+          <div class="field sel"><select id="f3"><option data-i18n="opt_mahfil">Mahfil</option><option data-i18n="opt_cultural">Cultural event</option><option data-i18n="opt_studio">Studio recording</option><option data-i18n="opt_collab">Collaboration</option><option data-i18n="opt_intl">International</option></select><label for="f3"><span data-i18n="f_type">Event type</span></label></div>
+          <div class="field"><input id="f4" placeholder=" "><label for="f4"><span data-i18n="f_city">City / country</span></label></div>
         </div>
-        <div class="field"><textarea id="f5" placeholder=" "></textarea><label for="f5"><span lang="en">Date &amp; details</span><span lang="bn">তারিখ ও বিস্তারিত</span></label></div>
-        <div><button class="pill pill-dark" type="submit"><span lang="en">Send request</span><span lang="bn">অনুরোধ পাঠান</span> <span class="ar">→</span></button></div>
+        <div class="field"><textarea id="f5" placeholder=" "></textarea><label for="f5"><span data-i18n="f_details">Date &amp; details</span></label></div>
+        <div><button class="pill pill-dark" type="submit"><span data-i18n="send">Send request</span> <span class="ar">→</span></button></div>
         <div class="form-ok" id="formOk"></div>
       </form>
     </div>
@@ -451,7 +478,7 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
   <div class="lb-box">
     <button class="lb-x" id="lbClose" aria-label="Close">✕</button>
     <div class="lb-frame" id="lbFrame"></div>
-    <a class="lb-link" id="lbLink" href="#" target="_blank" rel="noopener"><span lang="en">Open on YouTube</span><span lang="bn">YouTube-এ খুলুন</span> ↗</a>
+    <a class="lb-link" id="lbLink" href="#" target="_blank" rel="noopener"><span data-i18n="open_yt">Open on YouTube</span> ↗</a>
   </div>
 </div>
 
@@ -478,25 +505,143 @@ const VIDEOS=[
 ];
 const GRADS=[["#2b7a63","#0c1714"],["#7a4a33","#14110d"],["#2d4f6b","#0c1714"],["#6b5a2d","#14110d"],["#5a2d2d","#0c1714"],["#3a3a5a","#14110d"]];
 const EVENTS=[
-  {d:"12 Dec",dbn:"১২ ডিসেম্বর",y:"2026",en:"Annual Islamic Cultural Evening",bn:"বার্ষিক ইসলামী সাংস্কৃতিক সন্ধ্যা",p:"Dhaka, Bangladesh"},
-  {d:"26 Dec",dbn:"২৬ ডিসেম্বর",y:"2026",en:"Nasheed Night — Live",bn:"নাশীদ সন্ধ্যা — লাইভ",p:"Chattogram, Bangladesh"},
-  {d:"16 Jan",dbn:"১৬ জানুয়ারি",y:"2027",en:"Community Mahfil",bn:"কমিউনিটি মাহফিল",p:"London, UK"},
-  {d:"07 Feb",dbn:"০৭ ফেব্রুয়ারি",y:"2027",en:"Online Live — Hamd & Naat",bn:"অনলাইন লাইভ — হামদ ও নাত",p:"YouTube · Facebook"}
+  {date:"2026-12-12", key:"ev1", place:"Dhaka, Bangladesh"},
+  {date:"2026-12-26", key:"ev2", place:"Chattogram, Bangladesh"},
+  {date:"2027-01-16", key:"ev3", place:"London, UK"},
+  {date:"2027-02-07", key:"ev4", place:"YouTube · Facebook"}
 ];
 /* ======================================================================= */
 
+/* ============ TRANSLATIONS / অনুবাদ ============ */
+const LANGS={en:{label:"EN",dir:"ltr"},bn:{label:"বাং",dir:"ltr"},hi:{label:"हिं",dir:"ltr"},ur:{label:"اردو",dir:"rtl"},ar:{label:"عربي",dir:"rtl"}};
+const I18N={
+en:{
+nav_music:"music",nav_videos:"videos",nav_about:"about",nav_live:"live",nav_booking:"booking",join_short:"Join the Family",
+kicker:"Official website",hero_tag:"Nasheed, hamd &amp; naat — a voice of devotion, carried in melody.",
+listen_now:"Listen now",watch_video:"Watch video",now_playing:"Now playing",latest:"Latest release",
+rel_desc:"Soft vocals, sincere words and melodies made for remembrance. Tap any track to play it right here.",
+watch_listen:"Watch &amp; <em>listen</em>",more_yt:"More on YouTube",
+bio_lead:"Rajiya Risha is a Bangladeshi Islamic vocalist whose <em>nasheeds, hamd and naat</em> carry remembrance into everyday life — quiet, sincere, and made to be returned to.",
+bio_p1:"Rooted in the Bengali tradition of devotional song and inspired by the wider world of Arabic and Urdu nasheed, her work blends clear diction, restrained arrangement and lyrics that mean something.",
+bio_p2:"From studio releases to live mahfils, the aim is always the same: to make remembrance beautiful, and to leave every listener a little closer to peace.",
+verse:"“Verily, in the remembrance of Allah do hearts find rest.” — Ar-Ra‘d 13:28",
+label_live:"live dates",on_stage:"On <em>stage</em>",family_title:"Join the <em>Risha</em> family",
+family_desc:"New releases, live dates and behind-the-scenes — straight to your inbox. No noise, just remembrance.",
+subscribe:"Subscribe",label_booking:"booking &amp; contact",invite:"Invite <em>Rajiya</em>",
+booking_desc:"For mahfils, cultural programmes, studio collaborations and international events, please get in touch with management.",
+c_press:"Press &amp; media",f_name:"Your name",f_contact:"Phone / email",f_type:"Event type",f_city:"City / country",f_details:"Date &amp; details",
+send:"Send request",open_yt:"Open on YouTube",details:"Details",video_n:"Video {n}",
+opt_mahfil:"Mahfil",opt_cultural:"Cultural event",opt_studio:"Studio recording",opt_collab:"Collaboration",opt_intl:"International",
+join_ok:"JazakAllahu khayran — welcome to the family!",
+form_ok:"Thank you! Please confirm by emailing booking@rajiyarisha.com — we'll get back to you, in shaa Allah.",
+ev1:"Annual Islamic Cultural Evening",ev2:"Nasheed Night — Live",ev3:"Community Mahfil",ev4:"Online Live — Hamd &amp; Naat"
+},
+bn:{
+nav_music:"সংগীত",nav_videos:"ভিডিও",nav_about:"পরিচিতি",nav_live:"অনুষ্ঠান",nav_booking:"বুকিং",join_short:"পরিবারে যোগ দিন",
+kicker:"অফিসিয়াল ওয়েবসাইট",hero_tag:"নাশীদ, হামদ ও নাত — সুরে সুরে ভালোবাসার দাওয়াত।",
+listen_now:"এখনই শুনুন",watch_video:"ভিডিও দেখুন",now_playing:"এখন শুনুন",latest:"সর্বশেষ প্রকাশ",
+rel_desc:"কোমল কণ্ঠ, আন্তরিক কথা আর স্মরণের সুর। যেকোনো গজলে চাপ দিন — এখানেই বাজবে।",
+watch_listen:"দেখুন ও <em>শুনুন</em>",more_yt:"YouTube-এ আরও দেখুন",
+bio_lead:"Rajiya Risha একজন বাংলাদেশি ইসলামী সংগীত শিল্পী। তাঁর <em>নাশীদ, হামদ ও নাত</em> প্রতিদিনের জীবনে আল্লাহর স্মরণ বয়ে আনে — শান্ত, আন্তরিক, বারবার শোনার মতো।",
+bio_p1:"বাংলা ইসলামী সংগীতের ঐতিহ্যে বেড়ে ওঠা, আর আরবি ও উর্দু নাশীদের বৃহত্তর জগৎ থেকে অনুপ্রাণিত — তাঁর কাজে মেলে পরিশুদ্ধ উচ্চারণ, পরিমিত সুরবিন্যাস আর অর্থবহ কথা।",
+bio_p2:"স্টুডিও রেকর্ডিং থেকে লাইভ মাহফিল — লক্ষ্য সবসময় একটাই: আল্লাহর স্মরণকে সুন্দর করে তোলা, আর প্রতিটি শ্রোতাকে একটু বেশি প্রশান্তির কাছে নিয়ে যাওয়া।",
+verse:"“জেনে রাখো, আল্লাহর স্মরণেই হৃদয় প্রশান্ত হয়।” — সূরা আর-রা'দ ১৩:২৮",
+label_live:"আসন্ন অনুষ্ঠান",on_stage:"মঞ্চে <em>দেখা হবে</em>",family_title:"রিশা <em>পরিবারে</em> যোগ দিন",
+family_desc:"নতুন গজল, অনুষ্ঠানের খবর আর পর্দার পেছনের গল্প — সরাসরি আপনার ইনবক্সে।",
+subscribe:"সাবস্ক্রাইব",label_booking:"বুকিং ও যোগাযোগ",invite:"আমন্ত্রণ <em>জানান</em>",
+booking_desc:"মাহফিল, সাংস্কৃতিক অনুষ্ঠান, স্টুডিও কোলাবরেশন ও আন্তর্জাতিক অনুষ্ঠানের জন্য ম্যানেজমেন্টের সাথে যোগাযোগ করুন।",
+c_press:"প্রেস ও মিডিয়া",f_name:"আপনার নাম",f_contact:"ফোন / ইমেইল",f_type:"অনুষ্ঠানের ধরন",f_city:"শহর / দেশ",f_details:"তারিখ ও বিস্তারিত",
+send:"অনুরোধ পাঠান",open_yt:"YouTube-এ খুলুন",details:"বিস্তারিত",video_n:"ভিডিও {n}",
+opt_mahfil:"ওয়াজ মাহফিল",opt_cultural:"সাংস্কৃতিক অনুষ্ঠান",opt_studio:"স্টুডিও রেকর্ডিং",opt_collab:"কোলাবরেশন",opt_intl:"আন্তর্জাতিক অনুষ্ঠান",
+join_ok:"জাযাকাল্লাহু খাইরান! রিশা পরিবারে আপনাকে স্বাগতম।",
+form_ok:"ধন্যবাদ! অনুগ্রহ করে booking@rajiyarisha.com-এ ইমেইল করে নিশ্চিত করুন — ইনশাআল্লাহ দ্রুত উত্তর দেওয়া হবে।",
+ev1:"বার্ষিক ইসলামী সাংস্কৃতিক সন্ধ্যা",ev2:"নাশীদ সন্ধ্যা — লাইভ",ev3:"কমিউনিটি মাহফিল",ev4:"অনলাইন লাইভ — হামদ ও নাত"
+},
+hi:{
+nav_music:"संगीत",nav_videos:"वीडियो",nav_about:"परिचय",nav_live:"कार्यक्रम",nav_booking:"बुकिंग",join_short:"परिवार से जुड़ें",
+kicker:"आधिकारिक वेबसाइट",hero_tag:"नशीद, हम्द और नात — सुरों में बसी इबादत की आवाज़।",
+listen_now:"अभी सुनें",watch_video:"वीडियो देखें",now_playing:"अभी सुनें",latest:"नवीनतम रिलीज़",
+rel_desc:"कोमल आवाज़, सच्चे शब्द और ज़िक्र के लिए बनी धुनें। किसी भी ट्रैक पर टैप करें — यहीं चलेगा।",
+watch_listen:"देखें और <em>सुनें</em>",more_yt:"YouTube पर और देखें",
+bio_lead:"Rajiya Risha बांग्लादेश की एक इस्लामी गायिका हैं, जिनकी <em>नशीद, हम्द और नात</em> रोज़मर्रा की ज़िंदगी में अल्लाह की याद ले आती हैं — शांत, सच्ची और बार-बार सुनने लायक।",
+bio_p1:"बांग्ला भक्ति-संगीत की परंपरा में पली-बढ़ी और अरबी व उर्दू नशीद की व्यापक दुनिया से प्रेरित — उनके काम में साफ़ उच्चारण, संयमित संगीत-संयोजन और अर्थपूर्ण बोल मिलते हैं।",
+bio_p2:"स्टूडियो रिलीज़ से लेकर लाइव महफ़िलों तक, मक़सद हमेशा एक ही है: अल्लाह की याद को खूबसूरत बनाना, और हर श्रोता को सुकून के थोड़ा और क़रीब ले जाना।",
+verse:"“सुन लो! अल्लाह की याद ही से दिलों को सुकून मिलता है।” — सूरह अर-रअद 13:28",
+label_live:"आगामी कार्यक्रम",on_stage:"मंच पर <em>मुलाक़ात</em>",family_title:"<em>रिशा</em> परिवार से जुड़ें",
+family_desc:"नई रिलीज़, कार्यक्रमों की ख़बर और पर्दे के पीछे की झलकियाँ — सीधे आपके इनबॉक्स में।",
+subscribe:"सब्सक्राइब करें",label_booking:"बुकिंग और संपर्क",invite:"<em>आमंत्रित</em> करें",
+booking_desc:"महफ़िल, सांस्कृतिक कार्यक्रम, स्टूडियो सहयोग और अंतरराष्ट्रीय आयोजनों के लिए प्रबंधन से संपर्क करें।",
+c_press:"प्रेस और मीडिया",f_name:"आपका नाम",f_contact:"फ़ोन / ईमेल",f_type:"कार्यक्रम का प्रकार",f_city:"शहर / देश",f_details:"तारीख़ और विवरण",
+send:"अनुरोध भेजें",open_yt:"YouTube पर खोलें",details:"विवरण",video_n:"वीडियो {n}",
+opt_mahfil:"महफ़िल",opt_cultural:"सांस्कृतिक कार्यक्रम",opt_studio:"स्टूडियो रिकॉर्डिंग",opt_collab:"सहयोग",opt_intl:"अंतरराष्ट्रीय कार्यक्रम",
+join_ok:"जज़ाकल्लाहु ख़ैरन! रिशा परिवार में आपका स्वागत है।",
+form_ok:"शुक्रिया! कृपया booking@rajiyarisha.com पर ईमेल करके पुष्टि करें — इन शा अल्लाह हम जल्द जवाब देंगे।",
+ev1:"वार्षिक इस्लामी सांस्कृतिक संध्या",ev2:"नशीद नाइट — लाइव",ev3:"कम्युनिटी महफ़िल",ev4:"ऑनलाइन लाइव — हम्द और नात"
+},
+ur:{
+nav_music:"موسیقی",nav_videos:"ویڈیوز",nav_about:"تعارف",nav_live:"پروگرام",nav_booking:"بکنگ",join_short:"خاندان میں شامل ہوں",
+kicker:"آفیشل ویب سائٹ",hero_tag:"نشید، حمد اور نعت — سُروں میں بسی عقیدت کی آواز۔",
+listen_now:"ابھی سنیں",watch_video:"ویڈیو دیکھیں",now_playing:"ابھی سنیں",latest:"تازہ ترین ریلیز",
+rel_desc:"نرم آواز، سچے الفاظ اور ذکر کے لیے بنی دھنیں۔ کسی بھی ٹریک پر ٹیپ کریں — یہیں چلے گا۔",
+watch_listen:"دیکھیں اور <em>سنیں</em>",more_yt:"یوٹیوب پر مزید دیکھیں",
+bio_lead:"Rajiya Risha بنگلہ دیش کی ایک اسلامی گلوکارہ ہیں، جن کی <em>نشید، حمد اور نعت</em> روزمرہ زندگی میں اللہ کا ذکر لے آتی ہیں — پُرسکون، مخلص اور بار بار سننے کے لائق۔",
+bio_p1:"بنگالی عقیدتی موسیقی کی روایت میں پروان چڑھیں اور عربی و اردو نشید کی وسیع دنیا سے متاثر ہوئیں — ان کے کام میں صاف تلفظ، متوازن موسیقی اور بامعنی بول ملتے ہیں۔",
+bio_p2:"اسٹوڈیو ریلیز سے لے کر لائیو محافل تک، مقصد ہمیشہ ایک ہی ہے: اللہ کے ذکر کو خوبصورت بنانا، اور ہر سننے والے کو سکون کے تھوڑا اور قریب لے جانا۔",
+verse:"”سن لو! اللہ کے ذکر ہی سے دلوں کو اطمینان ملتا ہے۔“ — سورۃ الرعد ۱۳:۲۸",
+label_live:"آنے والے پروگرام",on_stage:"اسٹیج پر <em>ملاقات</em>",family_title:"<em>ریشا</em> خاندان میں شامل ہوں",
+family_desc:"نئی ریلیز، پروگراموں کی خبریں اور پسِ پردہ جھلکیاں — براہِ راست آپ کے ان باکس میں۔",
+subscribe:"سبسکرائب کریں",label_booking:"بکنگ اور رابطہ",invite:"<em>دعوت</em> دیں",
+booking_desc:"محافل، ثقافتی پروگراموں، اسٹوڈیو تعاون اور بین الاقوامی تقریبات کے لیے انتظامیہ سے رابطہ کریں۔",
+c_press:"پریس اور میڈیا",f_name:"آپ کا نام",f_contact:"فون / ای میل",f_type:"پروگرام کی قسم",f_city:"شہر / ملک",f_details:"تاریخ اور تفصیلات",
+send:"درخواست بھیجیں",open_yt:"یوٹیوب پر کھولیں",details:"تفصیلات",video_n:"ویڈیو {n}",
+opt_mahfil:"محفل",opt_cultural:"ثقافتی پروگرام",opt_studio:"اسٹوڈیو ریکارڈنگ",opt_collab:"تعاون",opt_intl:"بین الاقوامی پروگرام",
+join_ok:"جزاک اللہ خیراً! ریشا خاندان میں خوش آمدید۔",
+form_ok:"شکریہ! براہِ کرم booking@rajiyarisha.com پر ای میل کر کے تصدیق کریں — ان شاء اللہ ہم جلد جواب دیں گے۔",
+ev1:"سالانہ اسلامی ثقافتی شام",ev2:"نشید نائٹ — لائیو",ev3:"کمیونٹی محفل",ev4:"آن لائن لائیو — حمد و نعت"
+},
+ar:{
+nav_music:"الأناشيد",nav_videos:"الفيديو",nav_about:"نبذة",nav_live:"الحفلات",nav_booking:"الحجز",join_short:"انضم إلى العائلة",
+kicker:"الموقع الرسمي",hero_tag:"أناشيد وحمد ونعت — صوتُ المحبة محمولاً على اللحن.",
+listen_now:"استمع الآن",watch_video:"شاهد الفيديو",now_playing:"استمع الآن",latest:"أحدث إصدار",
+rel_desc:"صوتٌ هادئ، وكلماتٌ صادقة، وألحانٌ للذِّكر. اضغط على أي مقطع ليُشغَّل هنا مباشرة.",
+watch_listen:"شاهد <em>واستمع</em>",more_yt:"المزيد على يوتيوب",
+bio_lead:"Rajiya Risha منشدة إسلامية من بنغلاديش، تحمل <em>أناشيدها وحمدها ونعتها</em> ذِكرَ الله إلى الحياة اليومية — بهدوءٍ وصدق، وبما يدعوك للعودة إليها مرةً بعد مرة.",
+bio_p1:"نشأت في تقاليد الإنشاد البنغالي، واستلهمت من عالم النشيد العربي والأردي الواسع، فجمعت أعمالها بين وضوح النطق ورصانة التوزيع وكلماتٍ ذات معنى.",
+bio_p2:"من إصدارات الاستوديو إلى المحافل الحيّة، الغاية واحدة دائماً: أن يكون الذِّكر جميلاً، وأن يقترب كل مستمع خطوةً من السكينة.",
+verse:"— سورة الرعد، الآية ٢٨",
+label_live:"الحفلات القادمة",on_stage:"على <em>المسرح</em>",family_title:"انضم إلى عائلة <em>ريشا</em>",
+family_desc:"الإصدارات الجديدة، ومواعيد الحفلات، وما وراء الكواليس — مباشرةً إلى بريدك.",
+subscribe:"اشترك",label_booking:"الحجز والتواصل",invite:"وجّه <em>دعوة</em>",
+booking_desc:"للمحافل والفعاليات الثقافية والتعاون في الاستوديو والمناسبات الدولية، يُرجى التواصل مع الإدارة.",
+c_press:"الصحافة والإعلام",f_name:"اسمك",f_contact:"الهاتف / البريد الإلكتروني",f_type:"نوع المناسبة",f_city:"المدينة / الدولة",f_details:"التاريخ والتفاصيل",
+send:"أرسل الطلب",open_yt:"افتح على يوتيوب",details:"التفاصيل",video_n:"فيديو {n}",
+opt_mahfil:"محفل",opt_cultural:"فعالية ثقافية",opt_studio:"تسجيل في الاستوديو",opt_collab:"تعاون",opt_intl:"مناسبة دولية",
+join_ok:"جزاكم الله خيراً! أهلاً بك في عائلة ريشا.",
+form_ok:"شكراً لك! يُرجى التأكيد بمراسلة booking@rajiyarisha.com — وسنرد عليك قريباً إن شاء الله.",
+ev1:"الأمسية الثقافية الإسلامية السنوية",ev2:"ليلة الأناشيد — مباشر",ev3:"محفل المجتمع",ev4:"بث مباشر — حمد ونعت"
+}
+};
+
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const bi=(o)=>`<span lang="en">${o.en}</span><span lang="bn">${o.bn}</span>`;
+let LANG="en";
+const t=(k,n)=>((I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||k).replace("{n}",n==null?"":n.toLocaleString(LANG));
 
 /* language */
-function setLang(l){
-  document.body.classList.toggle("bn",l==="bn");
-  document.documentElement.lang=l==="bn"?"bn":"en";
-  $$(".lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
-  try{localStorage.setItem("rr-lang",l)}catch(e){}
+function applyLang(){
+  $$("[data-i18n]").forEach(el=>{el.innerHTML=t(el.dataset.i18n,el.dataset.n?+el.dataset.n:null)});
 }
-$$(".lang button").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
-try{const s=localStorage.getItem("rr-lang");if(s)setLang(s)}catch(e){}
+function setLang(l,save){
+  if(!I18N[l])l="en";LANG=l;
+  const h=document.documentElement;h.lang=l;h.dir=LANGS[l].dir;
+  $("#langCur").textContent=LANGS[l].label;
+  $$(".lang-menu button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
+  if(typeof renderEvents==="function")renderEvents();
+  applyLang();
+  if(save){try{localStorage.setItem("rr-lang",l)}catch(e){}}
+}
+$("#langBtn").onclick=e=>{e.stopPropagation();const o=$("#langsel").classList.toggle("open");$("#langBtn").setAttribute("aria-expanded",o)};
+$$(".lang-menu button").forEach(b=>b.onclick=()=>{setLang(b.dataset.l,true);$("#langsel").classList.remove("open")});
+document.addEventListener("click",()=>$("#langsel").classList.remove("open"));
 
 /* stars */
 const st=$("#stars");
@@ -514,7 +659,7 @@ g+=`<path d="M60 102v20" stroke="#6b3a2c" stroke-width="3"/><circle cx="60" cy="
 /* videos */
 const ytUrl=id=>`https://www.youtube.com/watch?v=${id}`;
 const thumb=(v,i,q)=>`background:url(https://i.ytimg.com/vi/${v.id}/${q}.jpg) center/cover,radial-gradient(circle at 30% 30%,${GRADS[i%6][0]},${GRADS[i%6][1]} 75%)`;
-const vTitle=(v,i)=>v.title||`<span lang="en">Video ${i+1}</span><span lang="bn">ভিডিও ${"১২৩৪৫৬৭৮৯"[i]||i+1}</span>`;
+const vTitle=(v,i)=>v.title||`<span data-i18n="video_n" data-n="${i+1}">${t("video_n",i+1)}</span>`;
 function renderVideos(){
   const [f,...rest]=VIDEOS;
   $("#vfeature").innerHTML=`
@@ -547,7 +692,11 @@ $("#lb").addEventListener("click",e=>{if(e.target.id==="lb")closeVideo()});
 addEventListener("keydown",e=>{if(e.key==="Escape")closeVideo()});
 
 /* events */
-$("#events").innerHTML=EVENTS.map(e=>`<div class="ev rv"><div class="d"><span lang="en">${e.d}</span><span lang="bn">${e.dbn}</span><small>${e.y}</small></div><div class="n">${bi(e)}</div><div class="p">${e.p}</div><a class="s" href="#booking"><span lang="en">Details</span><span lang="bn">বিস্তারিত</span></a></div>`).join("");
+function renderEvents(){
+  $("#events").innerHTML=EVENTS.map(e=>{const d=new Date(e.date+"T12:00:00");
+    return `<div class="ev rv in"><div class="d">${d.toLocaleDateString(LANG,{day:"numeric",month:"short"})}<small>${d.toLocaleDateString(LANG,{year:"numeric"})}</small></div><div class="n" data-i18n="${e.key}">${t(e.key)}</div><div class="p">${e.place}</div><a class="s" href="#booking"><span data-i18n="details">${t("details")}</span></a></div>`}).join("");
+}
+renderEvents();
 
 /* header + menu */
 const hdr=$("#hdr");
@@ -564,6 +713,11 @@ function parallax(){
 }
 parallax();
 
+/* initial language */
+(function(){let l=null;try{l=localStorage.getItem("rr-lang")}catch(e){}
+  if(!l){const nav=(navigator.languages||[navigator.language||"en"]).map(x=>x.slice(0,2));l=nav.find(x=>I18N[x])||"en"}
+  setLang(l)})();
+
 /* split headings into words */
 $$(".split").forEach(h=>{
   const walk=n=>{[...n.childNodes].forEach(ch=>{
@@ -578,8 +732,8 @@ $$(".rv,.split").forEach(el=>io.observe(el));
 setTimeout(()=>$(".hero .split").classList.add("in"),150);
 
 /* forms */
-$("#joinForm").addEventListener("submit",e=>{e.preventDefault();const bn=document.body.classList.contains("bn");$("#joinOk").textContent=bn?"জাযাকাল্লাহু খাইরান! রিশা পরিবারে আপনাকে স্বাগতম।":"JazakAllahu khayran — welcome to the family!";e.target.reset()});
-$("#bookForm").addEventListener("submit",e=>{e.preventDefault();const bn=document.body.classList.contains("bn");const ok=$("#formOk");ok.style.display="block";ok.textContent=bn?"ধন্যবাদ! অনুগ্রহ করে booking@rajiyarisha.com-এ ইমেইল করে নিশ্চিত করুন।":"Thank you! Please confirm by emailing booking@rajiyarisha.com — we'll get back to you, in shaa Allah.";e.target.reset()});
+$("#joinForm").addEventListener("submit",e=>{e.preventDefault();$("#joinOk").textContent=t("join_ok");e.target.reset()});
+$("#bookForm").addEventListener("submit",e=>{e.preventDefault();const ok=$("#formOk");ok.style.display="block";ok.textContent=t("form_ok");e.target.reset()});
 $("#yr").textContent=new Date().getFullYear();
 </script>
 </body>
