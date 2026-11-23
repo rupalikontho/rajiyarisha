@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +9,18 @@
 <meta name="author" content="Rajiya Risha">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://rajiyarisha.com/">
+<link rel="alternate" hreflang="en" href="https://rajiyarisha.com/">
+<link rel="alternate" hreflang="bn" href="https://rajiyarisha.com/bn/">
+<link rel="alternate" hreflang="hi" href="https://rajiyarisha.com/hi/">
+<link rel="alternate" hreflang="ur" href="https://rajiyarisha.com/ur/">
+<link rel="alternate" hreflang="ar" href="https://rajiyarisha.com/ar/">
+<link rel="alternate" hreflang="x-default" href="https://rajiyarisha.com/">
 <meta name="theme-color" content="#0c1714">
 <!-- Social share (Facebook / WhatsApp / X) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rajiya Risha – Official Site">
 <meta property="og:title" content="Rajiya Risha – Official Site">
-<meta property="og:description" content="Nasheed · Hamd · Naat — new releases, music videos, live mahfils and bookings.">
+<meta property="og:description" content="Official site of Rajiya Risha — Bangladeshi Islamic vocalist. Nasheed, hamd &amp; naat: new releases, music videos, live mahfils and bookings.">
 <meta property="og:url" content="https://rajiyarisha.com/">
 <meta property="og:image" content="https://rajiyarisha.com/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -26,7 +32,7 @@
 <meta property="og:locale:alternate" content="ar_AR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rajiya Risha – Official Site">
-<meta name="twitter:description" content="Nasheed · Hamd · Naat — new releases, music videos, live mahfils and bookings.">
+<meta name="twitter:description" content="Official site of Rajiya Risha — Bangladeshi Islamic vocalist. Nasheed, hamd &amp; naat: new releases, music videos, live mahfils and bookings.">
 <meta name="twitter:image" content="https://rajiyarisha.com/assets/og-image.jpg">
 <!-- Icons (Google shows the 48px+ icon in search results) -->
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -46,7 +52,7 @@
       "url": "https://rajiyarisha.com/",
       "name": "Rajiya Risha – Official Site",
       "alternateName": ["Rajiya Risha", "rajiyarisha.com", "রাজিয়া রিশা"],
-      "inLanguage": ["en", "bn", "hi", "ur", "ar"],
+      "inLanguage": "en",
       "publisher": {"@id": "https://rajiyarisha.com/#artist"}
     },
     {
@@ -64,8 +70,9 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://i.ytimg.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600&family=Amiri:wght@400;700&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500&family=Noto+Naskh+Arabic:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#f2ebdd; --paper2:#e9e0cc; --ink:#14110d; --ink2:#3a352d; --mute:#7c7365;
@@ -117,13 +124,13 @@ header.solid{background:rgba(242,235,221,.88);backdrop-filter:blur(14px);color:v
 .lang-btn:hover{opacity:1}
 .lang-menu{position:absolute;top:calc(100% + 10px);inset-inline-end:0;min-width:170px;background:var(--paper);color:var(--ink);border-radius:14px;padding:6px;box-shadow:0 20px 50px -12px rgba(0,0,0,.45);display:none;z-index:70}
 .langsel.open .lang-menu{display:block}
-.lang-menu button{display:block;width:100%;text-align:start;background:none;border:0;padding:10px 14px;border-radius:9px;font-size:1rem;cursor:pointer;color:inherit}
-.lang-menu button[data-l=bn]{font-family:'Hind Siliguri'}
-.lang-menu button[data-l=hi]{font-family:'Noto Sans Devanagari',sans-serif}
-.lang-menu button[data-l=ur]{font-family:'Noto Nastaliq Urdu',serif}
-.lang-menu button[data-l=ar]{font-family:'Noto Naskh Arabic',serif}
-.lang-menu button:hover{background:var(--paper2)}
-.lang-menu button.on{background:var(--ink);color:var(--paper)}
+.lang-menu a{display:block;width:100%;text-align:start;text-decoration:none;background:none;border:0;padding:10px 14px;border-radius:9px;font-size:1rem;cursor:pointer;color:inherit}
+.lang-menu a[data-l=bn]{font-family:'Hind Siliguri'}
+.lang-menu a[data-l=hi]{font-family:'Noto Sans Devanagari',sans-serif}
+.lang-menu a[data-l=ur]{font-family:'Noto Nastaliq Urdu',serif}
+.lang-menu a[data-l=ar]{font-family:'Noto Naskh Arabic',serif}
+.lang-menu a:hover{background:var(--paper2)}
+.lang-menu a.on{background:var(--ink);color:var(--paper)}
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;width:30px;height:20px;position:relative}
 .burger i{position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:.3s}
 .burger i:nth-child(1){top:4px}.burger i:nth-child(2){bottom:4px}
@@ -331,7 +338,7 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
 <!-- ================= HEADER ================= -->
 <header id="hdr">
   <div class="wrap bar">
-    <a href="#top" class="brand"><img src="assets/logo.jpg" alt="Rajiya Risha" class="brand-logo">Rajiya Risha</a>
+    <a href="#top" class="brand"><img src="/assets/logo.jpg" alt="Rajiya Risha logo" class="brand-logo" width="42" height="42">Rajiya Risha</a>
     <nav class="links">
       <a href="#music"><span data-i18n="nav_music">music</span></a>
       <a href="#videos"><span data-i18n="nav_videos">videos</span></a>
@@ -346,11 +353,11 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
           <span id="langCur">EN</span>
         </button>
         <div class="lang-menu" id="langMenu" role="menu">
-          <button data-l="en" role="menuitem">English</button>
-          <button data-l="bn" role="menuitem">বাংলা</button>
-          <button data-l="hi" role="menuitem">हिन्दी</button>
-          <button data-l="ur" role="menuitem" dir="rtl">اردو</button>
-          <button data-l="ar" role="menuitem" dir="rtl">العربية</button>
+          <a href="/" data-l="en" hreflang="en" lang="en" role="menuitem">English</a>
+          <a href="/bn/" data-l="bn" hreflang="bn" lang="bn" role="menuitem">বাংলা</a>
+          <a href="/hi/" data-l="hi" hreflang="hi" lang="hi" role="menuitem">हिन्दी</a>
+          <a href="/ur/" data-l="ur" hreflang="ur" lang="ur" role="menuitem" dir="rtl">اردو</a>
+          <a href="/ar/" data-l="ar" hreflang="ar" lang="ar" role="menuitem" dir="rtl">العربية</a>
         </div>
       </div>
       <button class="burger" aria-label="Menu"><i></i><i></i></button>
@@ -358,12 +365,12 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
   </div>
 </header>
 <div class="overlay" id="overlay">
-  <a href="#music"><span data-i18n="nav_music">Music</span></a>
-  <a href="#videos"><span data-i18n="nav_videos">Videos</span></a>
-  <a href="#about"><span data-i18n="nav_about">About</span></a>
-  <a href="#live"><span data-i18n="nav_live">Live</span></a>
+  <a href="#music"><span data-i18n="nav_music">music</span></a>
+  <a href="#videos"><span data-i18n="nav_videos">videos</span></a>
+  <a href="#about"><span data-i18n="nav_about">about</span></a>
+  <a href="#live"><span data-i18n="nav_live">live</span></a>
   <a href="#family"><em><span data-i18n="join_short">Join the Family</span></em></a>
-  <a href="#booking"><span data-i18n="nav_booking">Booking</span></a>
+  <a href="#booking"><span data-i18n="nav_booking">booking</span></a>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -448,7 +455,7 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
     <div class="label rv"><b>03</b> <span data-i18n="nav_about">about</span></div>
     <div class="about">
       <div class="portrait rv">
-        <img src="assets/rajiya-risha.jpg" alt="Rajiya Risha">
+        <img src="/assets/rajiya-risha.jpg" alt="Rajiya Risha — Islamic vocalist (nasheed, hamd, naat)" width="719" height="719" loading="lazy" decoding="async">
       </div>
       <div class="bio">
         <p class="lead rv"><span data-i18n="bio_lead">Rajiya Risha is a Bangladeshi Islamic vocalist whose <em>nasheeds, hamd and naat</em> carry remembrance into everyday life — quiet, sincere, and made to be returned to.</span></p>
@@ -504,7 +511,7 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
         <h2 class="display split"><span data-i18n="invite">Invite <em>Rajiya</em></span></h2>
         <p class="rv"><span data-i18n="booking_desc">For mahfils, cultural programmes, studio collaborations and international events, please get in touch with management.</span></p>
         <div class="contacts rv">
-          <div><small><span data-i18n="nav_booking">Booking</span></small><span>booking@rajiyarisha.com</span></div>
+          <div><small><span data-i18n="nav_booking">booking</span></small><span>booking@rajiyarisha.com</span></div>
           <div><small><span data-i18n="c_press">Press &amp; media</span></small><span>press@rajiyarisha.com</span></div>
           <div><small>WhatsApp</small><span>+880 1XXX-XXXXXX</span></div>
         </div>
@@ -540,7 +547,8 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
   <div class="bigname">Rajiya Risha</div>
   <div class="wrap fbar">
     <span>© <span id="yr"></span> Rajiya Risha · rajiyarisha.com</span>
-    <nav><a href="#music">Music</a><a href="#videos">Videos</a><a href="#booking">Booking</a><a href="#top">↑ Top</a></nav>
+    <nav class="flangs"><a href="/" data-l="en" hreflang="en" lang="en">English</a><a href="/bn/" data-l="bn" hreflang="bn" lang="bn">বাংলা</a><a href="/hi/" data-l="hi" hreflang="hi" lang="hi">हिन्दी</a><a href="/ur/" data-l="ur" hreflang="ur" lang="ur">اردو</a><a href="/ar/" data-l="ar" hreflang="ar" lang="ar">العربية</a></nav>
+    <nav><a href="#top">↑ Top</a></nav>
   </div>
 </footer>
 
@@ -687,13 +695,15 @@ function setLang(l,save){
   if(!I18N[l])l="en";LANG=l;
   const h=document.documentElement;h.lang=l;h.dir=LANGS[l].dir;
   $("#langCur").textContent=LANGS[l].label;
-  $$(".lang-menu button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
+  $$(".lang-menu a").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
   if(typeof renderEvents==="function")renderEvents();
   applyLang();
   if(save){try{localStorage.setItem("rr-lang",l)}catch(e){}}
 }
 $("#langBtn").onclick=e=>{e.stopPropagation();const o=$("#langsel").classList.toggle("open");$("#langBtn").setAttribute("aria-expanded",o)};
-$$(".lang-menu button").forEach(b=>b.onclick=()=>{setLang(b.dataset.l,true);$("#langsel").classList.remove("open")});
+const LANG_PATH={en:"/",bn:"/bn/",hi:"/hi/",ur:"/ur/",ar:"/ar/"};
+$$(".lang-menu a, .flangs a").forEach(b=>b.onclick=e=>{const l=b.dataset.l;try{localStorage.setItem("rr-lang",l)}catch(err){}
+  if(l===PAGE_LANG){e.preventDefault();$("#langsel").classList.remove("open")}});
 document.addEventListener("click",()=>$("#langsel").classList.remove("open"));
 
 /* stars */
@@ -766,10 +776,16 @@ function parallax(){
 }
 parallax();
 
-/* initial language */
-(function(){let l=null;try{l=localStorage.getItem("rr-lang")}catch(e){}
-  if(!l){const nav=(navigator.languages||[navigator.language||"en"]).map(x=>x.slice(0,2));l=nav.find(x=>I18N[x])||"en"}
-  setLang(l)})();
+/* initial language: each language has its own page (/, /bn/, /hi/, /ur/, /ar/) */
+const PAGE_LANG="en";
+setLang(PAGE_LANG);
+(function(){ /* first visit to the English home page: send visitor to their own language once */
+  if(PAGE_LANG!=="en")return;let saved=null;try{saved=localStorage.getItem("rr-lang")}catch(e){}
+  if(saved){if(saved!=="en"&&LANG_PATH[saved])location.replace(LANG_PATH[saved]);return}
+  const nav=(navigator.languages||[navigator.language||"en"]).map(x=>x.slice(0,2).toLowerCase());
+  const l=nav.find(x=>LANG_PATH[x]);
+  if(l&&l!=="en"){try{localStorage.setItem("rr-lang",l)}catch(e){}location.replace(LANG_PATH[l])}
+})();
 
 /* split headings into words */
 $$(".split").forEach(h=>{
