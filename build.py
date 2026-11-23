@@ -56,7 +56,7 @@ def translate(page, lang):
         txt = d[key].replace("{n}", n.group(1) if n else "")
         return f"<{tag}{attrs}>{txt}</{tag}>"
     # <tag ... data-i18n="key" ...>text</tag>  (no nested tags of the same name)
-    return re.sub(r'<(span|option|div|a|b|p|h\d)((?:(?!>)[^>])*?data-i18n="(\w+)"[^>]*)>(.*?)</\1>', rep, page, flags=re.S)
+    return re.sub(r'<(span|option|div|a|b|p|small|em|h\d)((?:(?!>)[^>])*?data-i18n="(\w+)"[^>]*)>(.*?)</\1>', rep, page, flags=re.S)
 
 for lang, c in LANGS.items():
     url = SITE + c["path"]
