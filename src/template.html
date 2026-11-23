@@ -90,7 +90,7 @@ html:not([lang=en]) .bio .lead{font-family:var(--sans);font-weight:500;font-size
 html[lang=ur] .bio .lead,html[lang=ur] p,html[lang=ur] .cols{line-height:2.2}
 html[lang=ur] .bio .lead{font-weight:400}
 html[dir=rtl] .pill .ar{transform:scaleX(-1)}
-html[dir=rtl] .hero h1{direction:ltr;text-align:right}
+html[dir=rtl] .hero h1{direction:ltr;text-align:left}
 html[dir=rtl] .bigname,html[dir=rtl] .contacts div>span,html[dir=rtl] .brand{direction:ltr;unicode-bidi:isolate}
 html[dir=rtl] .contacts div>span{display:block;text-align:right}
 html[dir=rtl] .kicker::before{order:2}
@@ -136,29 +136,70 @@ body.menu header{color:var(--paper);background:transparent;border-color:transpar
 @media(max-width:900px){.links{display:none}.burger{display:block}}
 
 /* ---------- hero ---------- */
-.hero{position:relative;height:100svh;min-height:640px;overflow:hidden;color:var(--paper);background:var(--night)}
-.sky{position:absolute;inset:0;background:
-  radial-gradient(ellipse 60% 45% at 50% 78%,rgba(232,170,110,.55),transparent 70%),
-  radial-gradient(ellipse 90% 70% at 50% 100%,#6b3a2c 0%,transparent 60%),
-  linear-gradient(180deg,#0a1412 0%,#10302a 45%,#3d3326 78%,#7a4a33 100%)}
-.stars{position:absolute;inset:0 0 40% 0}
+.hero{position:relative;min-height:100svh;overflow:hidden;color:var(--paper);background:
+  radial-gradient(ellipse 50% 60% at 72% 45%,rgba(201,162,90,.22),transparent 70%),
+  radial-gradient(ellipse 80% 60% at 20% 100%,rgba(29,91,75,.55),transparent 70%),
+  linear-gradient(170deg,#08110f 0%,#0d2621 55%,#1a1a12 100%)}
+.hero .geo-bg{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cg fill='none' stroke='%23e8cf98'%3E%3Cpath d='M48 6L60 36L90 48L60 60L48 90L36 60L6 48L36 36Z'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3C/svg%3E")}
+#dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.stars{position:absolute;inset:0 0 50% 0}
 .stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:tw 4s infinite}
-@keyframes tw{50%{opacity:.2}}
-.moon{position:absolute;top:16%;right:16%;width:clamp(60px,8vw,110px);aspect-ratio:1;border-radius:50%;box-shadow:inset -18px 6px 0 0 var(--gold2);transform:rotate(-20deg);filter:drop-shadow(0 0 30px rgba(232,207,152,.45))}
-.skyline{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;color:#07100e}
-.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:12vh}
+@keyframes tw{50%{opacity:.15}}
+.skyline{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;max-height:160px;color:#050b09;opacity:.9;z-index:2}
+.hero-grid{position:relative;z-index:3;min-height:100svh;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:20px;padding:110px 0 140px}
+.hero-text{position:relative;z-index:4}
+.bism{font-size:clamp(1.3rem,2.2vw,1.8rem);color:var(--gold2);opacity:.85;margin-bottom:26px}
 .kicker{display:flex;align-items:center;gap:14px;font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold2)}
 .kicker::before{content:"";width:46px;height:1px;background:var(--gold2)}
-.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(4.4rem,17vw,15rem);line-height:.82;letter-spacing:-.035em;margin-top:18px}
-.hero h1 em{font-style:italic;color:var(--gold2)}
-.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:34px;flex-wrap:wrap}
-.hero-foot p{max-width:400px;font-size:1rem;line-height:1.6;opacity:.85}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(4.6rem,12.5vw,12.5rem);line-height:.84;letter-spacing:-.035em;margin:20px 0 0;white-space:nowrap}
+.hero h1 .l2{display:block;padding-left:.9em;font-style:italic;color:var(--gold2);position:relative;z-index:5;text-shadow:0 10px 40px rgba(0,0,0,.45)}
+.hero h1 .l1{display:block}
+.hero-tag{max-width:420px;font-size:1.05rem;line-height:1.65;opacity:.85;margin-top:30px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.now-chip{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:8px 16px 8px 10px;border-radius:999px;background:rgba(242,235,221,.07);border:1px solid rgba(232,207,152,.25);font-size:.85rem;cursor:pointer;max-width:100%;transition:background .3s}
+.now-chip:hover{background:rgba(242,235,221,.14)}
+.now-chip .eq{display:flex;gap:2px;align-items:flex-end;height:16px;width:22px;justify-content:center}
+.now-chip .eq i{width:3px;background:var(--gold2);border-radius:2px;animation:eq 1s ease-in-out infinite}
+.now-chip .eq i:nth-child(2){animation-delay:-.4s}.now-chip .eq i:nth-child(3){animation-delay:-.7s}
+@keyframes eq{0%,100%{height:4px}50%{height:16px}}
+.now-chip small{opacity:.6;text-transform:uppercase;letter-spacing:.14em;font-size:.68rem}
+.now-chip b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+/* arch portrait */
+.arch-wrap{position:relative;justify-self:center;width:min(440px,100%);aspect-ratio:2/3}
+.arch-star{position:absolute;left:50%;top:44%;width:150%;aspect-ratio:1;transform:translate(-50%,-50%);color:var(--gold);opacity:.22;animation:rot 90s linear infinite;pointer-events:none}
+@keyframes rot{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.arch-img{position:absolute;inset:0;clip-path:url(#archClip);-webkit-clip-path:url(#archClip);overflow:hidden;background:#1d5b4b}
+.arch-img img{width:100%;height:100%;object-fit:cover;object-position:62% 40%;transform:scale(1.08);transition:transform 1.6s cubic-bezier(.2,.7,.2,1)}
+.arch-wrap:hover .arch-img img{transform:scale(1.12)}
+.arch-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(8,17,15,.55))}
+.arch-frame{position:absolute;inset:-14px;width:calc(100% + 28px);height:calc(100% + 28px);overflow:visible;pointer-events:none}
+.arch-moon{position:absolute;top:-6%;right:-8%;width:22%;aspect-ratio:1;border-radius:50%;box-shadow:inset -14px 6px 0 0 var(--gold2);transform:rotate(-20deg);filter:drop-shadow(0 0 26px rgba(232,207,152,.55))}
+.vert{position:absolute;right:-46px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center;font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold2);opacity:.6;white-space:nowrap}
 .pill{display:inline-flex;align-items:center;gap:12px;padding:15px 26px;border-radius:999px;font-size:.9rem;font-weight:600;letter-spacing:.02em;transition:transform .3s,background .3s,color .3s;cursor:pointer;border:0}
 .pill .ar{transition:transform .3s}.pill:hover .ar{transform:translateX(4px)}
 .pill-light{background:var(--paper);color:var(--ink)}.pill-light:hover{background:var(--gold2)}
 .pill-line{border:1px solid currentColor;background:transparent;color:inherit}.pill-line:hover{background:rgba(255,255,255,.08)}
 .pill-dark{background:var(--ink);color:var(--paper)}.pill-dark:hover{background:var(--emerald)}
-.hero .arabic-ghost{position:absolute;top:14%;left:6vw;font-size:clamp(1.4rem,2.5vw,2rem);color:var(--gold2);opacity:.75}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;padding:96px 0 120px;gap:0}
+  .arch-wrap{order:-1;width:min(280px,68vw);margin-bottom:34px}
+  .hero h1{font-size:clamp(3.8rem,19vw,7rem)}
+  .vert{display:none}
+}
+/* scroll progress */
+.pbar{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:80}
+/* iznik tile band */
+.iznik{height:84px;background-color:#f6f1e6;background-size:84px 84px;border-block:3px solid #1f3f8f;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'%3E%3Crect width='84' height='84' fill='%23f6f1e6'/%3E%3Cpath d='M42 8L50 30L72 42L50 54L42 76L34 54L12 42L34 30Z' fill='%231f3f8f'/%3E%3Cpath d='M42 20L47 34L62 42L47 50L42 64L37 50L22 42L37 34Z' fill='%2340a6a0'/%3E%3Ccircle cx='42' cy='42' r='6' fill='%23c8453b'/%3E%3Cpath d='M0 0q10 2 12 12q-10-2-12-12zM84 0q-10 2-12 12q10-2 12-12zM0 84q10-2 12-12q-10 2-12 12zM84 84q-10-2-12-12q10 2 12 12z' fill='%23c8453b'/%3E%3Cpath d='M0 42h6M78 42h6M42 0v6M42 78v6' stroke='%231f3f8f' stroke-width='3'/%3E%3C/svg%3E")}
+/* countdown */
+.countdown{display:flex;align-items:center;gap:clamp(16px,4vw,48px);flex-wrap:wrap;margin-top:34px;padding:26px 30px;border-radius:20px;background:var(--ink);color:var(--paper)}
+.countdown .cd-l{flex:1;min-width:200px}
+.countdown .cd-l small{display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2)}
+.countdown .cd-l b{display:block;font-weight:600;font-size:1.1rem;margin-top:6px}
+.cd-n{display:flex;gap:clamp(10px,2.4vw,28px)}
+.cd-n div{text-align:center;min-width:56px}
+.cd-n b{display:block;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1;color:var(--gold2);font-variant-numeric:tabular-nums}
+.cd-n span{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
 
 /* ---------- marquee ---------- */
 .marquee{background:var(--ink);color:var(--paper);overflow:hidden;padding:20px 0;border-block:1px solid #000}
@@ -365,24 +406,34 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
 </div>
 
 <!-- ================= HERO ================= -->
+<div class="pbar" id="pbar"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <clipPath id="archClip" clipPathUnits="objectBoundingBox"><path d="M0,1 V0.36 C0,0.17 0.22,0.07 0.5,0 C0.78,0.07 1,0.17 1,0.36 V1 Z"/></clipPath>
+</svg>
 <section class="hero" id="top">
-  <div class="sky"></div>
+  <div class="geo-bg"></div>
   <div class="stars" id="stars"></div>
-  <div class="moon"></div>
-  <div class="arabic arabic-ghost">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-  <!-- skyline -->
-  <svg class="skyline" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" fill="currentColor">
-    <path d="M0 300V230h60v-20h30v20h40v-40h20v40h50V200q0-30 30-45 30 15 30 45v30h40V120l6-30 6 30v110h50v-50q0-55 70-80 70 25 70 80v50h40V160q0-20 22-34 22 14 22 34v70h60v-30h50v30h30V110l7-34 7 34v120h50v-60q0-45 55-65 55 20 55 65v60h40v-40h30v40h40v-60q0-26 26-40 26 14 26 40v60h40V130l6-28 6 28v100h40v-30h30v30h50v20h40v-40h30v40h20v70z"/>
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <svg class="skyline" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" fill="currentColor" aria-hidden="true">
+    <path d="M0 300V250h60v-14h30v14h40v-30h20v30h50V226q0-24 30-36 30 12 30 36v24h40V160l6-24 6 24v90h50v-40q0-44 70-64 70 20 70 64v40h40V190q0-16 22-27 22 11 22 27v60h60v-24h50v24h30V150l7-28 7 28v100h50v-48q0-36 55-52 55 16 55 52v48h40v-32h30v32h40v-48q0-21 26-32 26 11 26 32v48h40V170l6-22 6 22v80h40v-24h30v24h50v14h40v-30h30v30h20v50z"/>
   </svg>
-  <div class="hero-content wrap">
-    <div class="kicker"><span data-i18n="kicker">Official website</span></div>
-    <h1 class="split">Rajiya <em>Risha</em></h1>
-    <div class="hero-foot">
-      <p class="rv"><span data-i18n="hero_tag">Nasheed, hamd &amp; naat — a voice of devotion, carried in melody.</span></p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap" class="rv">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <div class="arabic bism">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+      <div class="kicker"><span data-i18n="kicker">Official website</span></div>
+      <h1 class="split"><span class="l1">Rajiya</span><span class="l2">Risha</span></h1>
+      <p class="hero-tag rv"><span data-i18n="hero_tag">Nasheed, hamd &amp; naat — a voice of devotion, carried in melody.</span></p>
+      <div class="hero-cta rv">
         <a href="#music" class="pill pill-light"><span data-i18n="listen_now">Listen now</span> <span class="ar">→</span></a>
         <a href="#videos" class="pill pill-line" data-i="0">▶ <span data-i18n="watch_video">Watch video</span></a>
       </div>
+      <a href="#videos" class="now-chip rv" data-i="0"><span class="eq"><i></i><i></i><i></i></span><small data-i18n="latest">Latest release</small><b data-t="0">—</b></a>
+    </div>
+    <div class="arch-wrap rv">
+      <svg class="arch-star" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width=".35"><rect x="20" y="20" width="60" height="60"/><rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="42"/><rect x="29" y="29" width="42" height="42" transform="rotate(22.5 50 50)"/><rect x="29" y="29" width="42" height="42" transform="rotate(67.5 50 50)"/></g></svg>
+      <div class="arch-img"><img src="/assets/rajiya-risha.jpg" alt="Rajiya Risha" width="719" height="719" fetchpriority="high"></div>
+      <svg class="arch-frame" viewBox="0 0 100 150" preserveAspectRatio="none" aria-hidden="true"><path d="M0,150 V54 C0,25.5 22,10.5 50,0 C78,10.5 100,25.5 100,54 V150" fill="none" stroke="#c9a25a" stroke-width="1.2" vector-effect="non-scaling-stroke"/><path d="M5,150 V55.5 C5,29 26,15.5 50,6 C74,15.5 95,29 95,55.5 V150" fill="none" stroke="#e8cf98" stroke-opacity=".45" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>
+      <div class="arch-moon"></div>
     </div>
   </div>
 </section>
@@ -463,11 +514,22 @@ footer{background:var(--night);color:var(--paper);padding:80px 0 40px;overflow:h
   </div>
 </section>
 
+<div class="iznik" aria-hidden="true"></div>
+
 <!-- ================= LIVE ================= -->
 <section id="live">
   <div class="wrap">
     <div class="label rv"><b>04</b> <span data-i18n="label_live">live dates</span></div>
     <h2 class="display split" style="margin-top:40px"><span data-i18n="on_stage">On <em>stage</em></span></h2>
+    <div class="countdown rv" id="countdown">
+      <div class="cd-l"><small data-i18n="next_in">Next live event in</small><b id="cdName"></b></div>
+      <div class="cd-n">
+        <div><b id="cdD">00</b><span data-i18n="cd_d">Days</span></div>
+        <div><b id="cdH">00</b><span data-i18n="cd_h">Hours</span></div>
+        <div><b id="cdM">00</b><span data-i18n="cd_m">Min</span></div>
+        <div><b id="cdS">00</b><span data-i18n="cd_s">Sec</span></div>
+      </div>
+    </div>
     <div class="events" id="events"></div>
   </div>
 </section>
@@ -568,6 +630,7 @@ const EVENTS=[
 const LANGS={en:{label:"EN",dir:"ltr"},bn:{label:"বাং",dir:"ltr"},hi:{label:"हिं",dir:"ltr"},ur:{label:"اردو",dir:"rtl"},ar:{label:"عربي",dir:"rtl"}};
 const I18N={
 en:{
+next_in:"Next live event in",cd_d:"Days",cd_h:"Hours",cd_m:"Min",cd_s:"Sec",
 nav_music:"music",nav_videos:"videos",nav_about:"about",nav_live:"live",nav_booking:"booking",join_short:"Join the Family",
 kicker:"Official website",hero_tag:"Nasheed, hamd &amp; naat — a voice of devotion, carried in melody.",
 listen_now:"Listen now",watch_video:"Watch video",now_playing:"Now playing",latest:"Latest release",
@@ -589,6 +652,7 @@ form_ok:"Thank you! Please confirm by emailing booking@rajiyarisha.com — we'll
 ev1:"Annual Islamic Cultural Evening",ev2:"Nasheed Night — Live",ev3:"Community Mahfil",ev4:"Online Live — Hamd &amp; Naat"
 },
 bn:{
+next_in:"পরবর্তী অনুষ্ঠান শুরু হতে বাকি",cd_d:"দিন",cd_h:"ঘণ্টা",cd_m:"মিনিট",cd_s:"সেকেন্ড",
 nav_music:"সংগীত",nav_videos:"ভিডিও",nav_about:"পরিচিতি",nav_live:"অনুষ্ঠান",nav_booking:"বুকিং",join_short:"পরিবারে যোগ দিন",
 kicker:"অফিসিয়াল ওয়েবসাইট",hero_tag:"নাশীদ, হামদ ও নাত — সুরে সুরে ভালোবাসার দাওয়াত।",
 listen_now:"এখনই শুনুন",watch_video:"ভিডিও দেখুন",now_playing:"এখন শুনুন",latest:"সর্বশেষ প্রকাশ",
@@ -610,6 +674,7 @@ form_ok:"ধন্যবাদ! অনুগ্রহ করে booking@rajiyari
 ev1:"বার্ষিক ইসলামী সাংস্কৃতিক সন্ধ্যা",ev2:"নাশীদ সন্ধ্যা — লাইভ",ev3:"কমিউনিটি মাহফিল",ev4:"অনলাইন লাইভ — হামদ ও নাত"
 },
 hi:{
+next_in:"अगला कार्यक्रम शुरू होने में",cd_d:"दिन",cd_h:"घंटे",cd_m:"मिनट",cd_s:"सेकंड",
 nav_music:"संगीत",nav_videos:"वीडियो",nav_about:"परिचय",nav_live:"कार्यक्रम",nav_booking:"बुकिंग",join_short:"परिवार से जुड़ें",
 kicker:"आधिकारिक वेबसाइट",hero_tag:"नशीद, हम्द और नात — सुरों में बसी इबादत की आवाज़।",
 listen_now:"अभी सुनें",watch_video:"वीडियो देखें",now_playing:"अभी सुनें",latest:"नवीनतम रिलीज़",
@@ -631,6 +696,7 @@ form_ok:"शुक्रिया! कृपया booking@rajiyarisha.com प�
 ev1:"वार्षिक इस्लामी सांस्कृतिक संध्या",ev2:"नशीद नाइट — लाइव",ev3:"कम्युनिटी महफ़िल",ev4:"ऑनलाइन लाइव — हम्द और नात"
 },
 ur:{
+next_in:"اگلا پروگرام شروع ہونے میں",cd_d:"دن",cd_h:"گھنٹے",cd_m:"منٹ",cd_s:"سیکنڈ",
 nav_music:"موسیقی",nav_videos:"ویڈیوز",nav_about:"تعارف",nav_live:"پروگرام",nav_booking:"بکنگ",join_short:"خاندان میں شامل ہوں",
 kicker:"آفیشل ویب سائٹ",hero_tag:"نشید، حمد اور نعت — سُروں میں بسی عقیدت کی آواز۔",
 listen_now:"ابھی سنیں",watch_video:"ویڈیو دیکھیں",now_playing:"ابھی سنیں",latest:"تازہ ترین ریلیز",
@@ -652,6 +718,7 @@ form_ok:"شکریہ! براہِ کرم booking@rajiyarisha.com پر ای میل 
 ev1:"سالانہ اسلامی ثقافتی شام",ev2:"نشید نائٹ — لائیو",ev3:"کمیونٹی محفل",ev4:"آن لائن لائیو — حمد و نعت"
 },
 ar:{
+next_in:"الحفل القادم بعد",cd_d:"يوم",cd_h:"ساعة",cd_m:"دقيقة",cd_s:"ثانية",
 nav_music:"الأناشيد",nav_videos:"الفيديو",nav_about:"نبذة",nav_live:"الحفلات",nav_booking:"الحجز",join_short:"انضم إلى العائلة",
 kicker:"الموقع الرسمي",hero_tag:"أناشيد وحمد ونعت — صوتُ المحبة محمولاً على اللحن.",
 listen_now:"استمع الآن",watch_video:"شاهد الفيديو",now_playing:"استمع الآن",latest:"أحدث إصدار",
@@ -697,6 +764,29 @@ $$(".lang-menu a, .flangs a").forEach(b=>b.onclick=e=>{const l=b.dataset.l;try{l
   if(l===PAGE_LANG){e.preventDefault();$("#langsel").classList.remove("open")}});
 document.addEventListener("click",()=>$("#langsel").classList.remove("open"));
 
+/* gold dust */
+(function(){const c=$("#dust");if(!c||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const x=c.getContext("2d");let W,H,P=[],run=true;const dpr=Math.min(devicePixelRatio||1,2);
+  function size(){W=c.offsetWidth;H=c.offsetHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+  size();addEventListener("resize",size);
+  for(let i=0;i<90;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.3,v:Math.random()*.35+.08,d:Math.random()*Math.PI*2,t:Math.random()*.02+.005});
+  new IntersectionObserver(e=>{run=e[0].isIntersecting;if(run)loop()}).observe(c);
+  function loop(){if(!run)return;x.clearRect(0,0,W,H);
+    for(const p of P){p.y-=p.v;p.d+=p.t;p.x+=Math.sin(p.d)*.25;if(p.y<-5){p.y=H+5;p.x=Math.random()*W}
+      const a=.35+.65*Math.abs(Math.sin(p.d*2));x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle=`rgba(232,207,152,${a})`;x.shadowBlur=8;x.shadowColor="rgba(232,207,152,.8)";x.fill()}
+    requestAnimationFrame(loop)}
+  loop()})();
+
+/* countdown to next event */
+function tickCountdown(){
+  const now=Date.now(),next=EVENTS.map(e=>({...e,ts:new Date(e.date+"T18:00:00+06:00").getTime()})).find(e=>e.ts>now);
+  const box=$("#countdown");if(!next){box.style.display="none";return}
+  $("#cdName").innerHTML=t(next.key)+" · "+next.place;
+  let s=Math.floor((next.ts-now)/1000);const f=n=>String(n).padStart(2,"0");
+  $("#cdD").textContent=f(Math.floor(s/86400));s%=86400;$("#cdH").textContent=f(Math.floor(s/3600));s%=3600;
+  $("#cdM").textContent=f(Math.floor(s/60));$("#cdS").textContent=f(s%60);
+}
+
 /* stars */
 const st=$("#stars");
 for(let i=0;i<70;i++){const s=document.createElement("i");s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";s.style.opacity=.3+Math.random()*.7;s.style.animationDelay=Math.random()*4+"s";if(Math.random()>.8){s.style.width=s.style.height="3px"}st.appendChild(s)}
@@ -721,6 +811,7 @@ function renderVideos(){
     <div class="vside">${rest.map((r,k)=>`<a class="vrow" href="${ytUrl(r.id)}" data-i="${k+1}" target="_blank" rel="noopener"><div class="mini" style="${thumb(r,k+1,'mqdefault')}"></div><div><b data-t="${k+1}">${vTitle(r,k+1)}</b><small>YouTube</small></div></a>`).join("")}</div>`;
   $("#tracklist").innerHTML=VIDEOS.map((v,i)=>`<li data-i="${i}"><span>${String(i+1).padStart(2,"0")}</span><span data-t="${i}">${vTitle(v,i)}</span><span>▶</span></li>`).join("");
   $("#relTitle").innerHTML=vTitle(VIDEOS[0],0);
+  $$(".now-chip [data-t]").forEach(el=>el.innerHTML=vTitle(VIDEOS[0],0));
   $$("[data-i]").forEach(el=>el.addEventListener("click",e=>{e.preventDefault();openVideo(+el.dataset.i)}));
 }
 renderVideos();
@@ -754,7 +845,7 @@ renderEvents();
 
 /* header + menu */
 const hdr=$("#hdr");
-const onScroll=()=>{hdr.classList.toggle("solid",scrollY>innerHeight*.85);parallax()};
+const onScroll=()=>{hdr.classList.toggle("solid",scrollY>innerHeight*.85);parallax();$("#pbar").style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+"%"};
 addEventListener("scroll",onScroll,{passive:true});
 $(".burger").onclick=()=>document.body.classList.toggle("menu");
 $$("#overlay a").forEach(a=>a.onclick=()=>document.body.classList.remove("menu"));
@@ -790,6 +881,7 @@ $$(".split").forEach(h=>{
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
 $$(".rv,.split").forEach(el=>io.observe(el));
 setTimeout(()=>$(".hero .split").classList.add("in"),150);
+tickCountdown();setInterval(tickCountdown,1000);
 
 /* forms */
 $("#joinForm").addEventListener("submit",e=>{e.preventDefault();$("#joinOk").textContent=t("join_ok");e.target.reset()});
